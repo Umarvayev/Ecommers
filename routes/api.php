@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -18,13 +19,20 @@ use App\Http\Controllers\CategoryProductController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
     //Auth
-    Route::post('/auth/login', [AuthController::class, 'login']);
+    Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::post('/auth/register', [AuthController::class, 'register']);
+    Route::get('/auth/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
+
+    //Favorite
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/favorites', [FavoriteController::class, 'store']);
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy']);
 
     //Category
     Route::get('/categories', [CategoryController::class, 'index']);

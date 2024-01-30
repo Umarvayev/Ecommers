@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -24,8 +25,18 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+
+    }
+
     public function register()
     {
 
+    }
+
+    public function user(Request $request)
+    {
+        return $request->user();
     }
 }
